@@ -48,4 +48,14 @@ public class SerieT {
         return this.listEvents;
     }
 
+    @Override
+    public String toString() {
+        String returnString = title + " : ";
+        for (Event event : listEvents) {
+            returnString = returnString + event.toString();
+        }
+        
+        return returnString;
+    }
+
 }
