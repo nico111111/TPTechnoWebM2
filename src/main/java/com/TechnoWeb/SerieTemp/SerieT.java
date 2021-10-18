@@ -40,7 +40,7 @@ public class SerieT {
         return this.desc;
     }
 
-    public void setListeEvents(ArrayList listEvents) {
+    public void setListeEvents(ArrayList<Event> listEvents) {
         this.listEvents = listEvents;
     }
 

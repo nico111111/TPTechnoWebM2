@@ -3,6 +3,8 @@ package com.TechnoWeb.SerieTemp;
 import java.util.Date;
 import java.util.ArrayList;
 
+//https://spring.io/guides/tutorials/rest/
+
 public class Event {
     private int id;
     private Date date;
@@ -52,11 +54,16 @@ public class Event {
         return this.comment;
     }
 
-    public void setTags(ArrayList tags) {
+    public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
 
     public ArrayList<String> getTags() {
         return this.tags;
+    }
+
+    @Override
+    public String toString() {
+        return this.date + " " + this.value;
     }
 }
