@@ -3,30 +3,46 @@ package com.TechnoWeb.SerieTemp;
 import java.util.Date;
 import java.util.ArrayList;
 
-//https://spring.io/guides/tutorials/rest/
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+//https://spring.io/guides/tutorials/rest/
+@Entity
+@Table(name="EVENT")
 public class Event {
-    private int id;
+    @Id
+    @GeneratedValue
+    @Column(name = "Id", nullable = false)
+    private Long id;
+
+    @Column(name = "Date", nullable = false)
     private Date date;
+
+    @Column(name = "Value", nullable = false)
     private float value;
+
+    @Column(name = "Comment", nullable = true)
     private String comment;
+
     private ArrayList<String> tags;
 
     public Event() {}
 
-    public Event(int id, Date date, float value, String comment) {
-        this.id = id;
+    public Event(Date date, float value, String comment) {
         this.date = date;
         this.value = value;
         this.comment = comment;
         this.tags = new ArrayList<String>();
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 

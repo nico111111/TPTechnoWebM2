@@ -2,25 +2,42 @@ package com.TechnoWeb.SerieTemp;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+
+@Entity
+@Table(name="SERIET")
 public class SerieT {
-    private int id;
+
+    @Id
+    @GeneratedValue
+    @Column(name = "Id", nullable = false)
+    private Long id;
+
+    @Column(name = "Title", length = 64, nullable = false)
     private String title;
+
+    @Column(name = "Desc", length = 1024, nullable = true)
     private String desc;
     private ArrayList<Event> listEvents;
 
     public SerieT(){}
 
-    public SerieT(int id, String title, String desc){
-        this.id = id;
+    public SerieT(String title, String desc){
         this.title = title;
         this.desc = desc;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -51,10 +68,11 @@ public class SerieT {
     @Override
     public String toString() {
         String returnString = title + " : ";
-        for (Event event : listEvents) {
-            returnString = returnString + event.toString();
+        if(listEvents != null){
+            for (Event event : listEvents) {
+                returnString = returnString + event.toString();
+            }
         }
-        
         return returnString;
     }
 
