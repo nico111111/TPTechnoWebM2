@@ -28,8 +28,7 @@ public class SerieT {
 
     public SerieT(){}
 
-    public SerieT(Long id, String title, String desc){
-        this.id = id;
+    public SerieT(String title, String desc){
         this.title = title;
         this.desc = desc;
     }
@@ -69,10 +68,11 @@ public class SerieT {
     @Override
     public String toString() {
         String returnString = title + " : ";
-        for (Event event : listEvents) {
-            returnString = returnString + event.toString();
+        if(listEvents != null){
+            for (Event event : listEvents) {
+                returnString = returnString + event.toString();
+            }
         }
-        
         return returnString;
     }
 
