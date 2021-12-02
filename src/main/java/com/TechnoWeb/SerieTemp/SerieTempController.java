@@ -8,6 +8,8 @@ import javax.management.ServiceNotFoundException;
 
 import org.apache.coyote.ActionCode;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.codec.HttpMessageEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.hateoas.server.reactive.WebFluxLinkBuilder;
 
 @RestController
 public class SerieTempController {
@@ -32,26 +36,27 @@ public class SerieTempController {
 	}
 
 	@GetMapping("/SerieT")
-	Iterable<SerieT> allSeries() {
-		return serieTDAO.findAll();
+	CollectionModel<SerieT> allSeries() {
+		Iterable<SerieT> listS = serieTDAO.findAll();
+		for (SerieT se : listS) {
+			Link selfLink = linkTo(methodOn(SerieTempController.class).one(se.getId())).withSelfRel();
+			se.setSelfLink(selfLink);
+		}
+		return CollectionModel.of(listS);
 	}
 
-	// @PostMapping("/SerieT")
-	// String addSerie(@RequestBody SerieT serie) {
-	// 	try {
-	// 		listSerieT.add(serie);
-	// 		return "Serie ajouter";
-	// 	} catch (Exception e) {
-	// 		//TODO catch might be useless
-	// 		return "probleme d'ajout";
-	// 	} 
-	// }
 
-	// @GetMapping("/SerieT/{id}")
-	// SerieT showSerie(@PathVariable int id)	{
-	// 	return findSerieByid(id);
-		
-	// }
+/*
+	@GetMapping("/SerieT/{titre}")
+	Iterable<SerieT> showSerie(@PathVariable String titre) {
+		return serieTDAO.findByTitle(titre);
+	}
+*/
+	@GetMapping("/SerieT/{id}")
+	EntityModel<SerieT> one(@PathVariable long id) {
+		SerieT test = serieTDAO.findById(id);
+		return EntityModel.of(test,linkTo(methodOn(SerieTempController.class).one(id)).withSelfRel(),linkTo(methodOn(SerieTempController.class).allSeries()).withRel("toute les series"));
+	}
 /*
 	@GetMapping("/SerieT/{id}")
 	EntityModel<SerieT> showSerie(@PathVariable int id, @RequestParam String type)	{
@@ -65,6 +70,16 @@ public class SerieTempController {
 			return EntityModel.of(findSerieByid(id));
 		}
 	}
+	// @PostMapping("/SerieT")
+	// String addSerie(@RequestBody SerieT serie) {
+	// 	try {
+	// 		listSerieT.add(serie);
+	// 		return "Serie ajouter";
+	// 	} catch (Exception e) {
+	// 		//TODO catch might be useless
+	// 		return "probleme d'ajout";
+	// 	} 
+	// }
 */
 	// @DeleteMapping("/SerieT/{id}")
 	// void deleteSerie(@PathVariable int id) {

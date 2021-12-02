@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import org.springframework.hateoas.Link;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 @Entity
@@ -25,6 +25,8 @@ public class SerieT {
     @Column(name = "Desc", length = 1024, nullable = true)
     private String desc;
     private ArrayList<Event> listEvents;
+
+    private Link selfLink;
 
     public SerieT(){}
 
@@ -55,6 +57,14 @@ public class SerieT {
 
     public String getDesc() {
         return this.desc;
+    }
+
+    public void setSelfLink(Link l) {
+        this.selfLink = l;
+    }
+
+    public Link getSelfLink() {
+        return this.selfLink;
     }
 
     public void setListeEvents(ArrayList<Event> listEvents) {
