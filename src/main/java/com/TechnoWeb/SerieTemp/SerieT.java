@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.hateoas.Link;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 @Entity
@@ -24,6 +27,9 @@ public class SerieT {
 
     @Column(name = "Desc", length = 1024, nullable = true)
     private String desc;
+
+    @JsonInclude()
+    @Transient
     private ArrayList<Event> listEvents;
 
     private Link selfLink;

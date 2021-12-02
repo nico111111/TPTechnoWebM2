@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 //https://spring.io/guides/tutorials/rest/
 @Entity
@@ -27,6 +30,8 @@ public class Event {
     @Column(name = "Comment", nullable = true)
     private String comment;
 
+    @JsonInclude()
+    @Transient
     private ArrayList<String> tags;
 
     public Event() {}
