@@ -1,7 +1,7 @@
 package com.TechnoWeb.SerieTemp;
 
 public class SerieNotFoundException extends RuntimeException {
-    SerieNotFoundException(int id) {
+    SerieNotFoundException(long id) {
         super("Could not find serie : " + id);
     }
 }
