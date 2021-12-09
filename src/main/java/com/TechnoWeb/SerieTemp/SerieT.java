@@ -1,11 +1,12 @@
 package com.TechnoWeb.SerieTemp;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.hateoas.Link;
 import javax.persistence.Transient;
@@ -28,9 +29,8 @@ public class SerieT {
     @Column(name = "Desc", length = 1024, nullable = true)
     private String desc;
 
-    @JsonInclude()
-    @Transient
-    private ArrayList<Event> listEvents;
+    @OneToMany(mappedBy = "serieT")
+    private Set<Event> listEvents;
 
     @Transient
     private Link selfLink;
@@ -74,12 +74,12 @@ public class SerieT {
         return this.selfLink;
     }
 
-    public void setListeEvents(ArrayList<Event> listEvents) {
-        this.listEvents = listEvents;
+    public Set<Event> getListEvents() {
+        return listEvents;
     }
 
-    public ArrayList<Event> getListEvents() {
-        return this.listEvents;
+    public void setListEvents(Set<Event> listEvents) {
+        this.listEvents = listEvents;
     }
 
     @Override

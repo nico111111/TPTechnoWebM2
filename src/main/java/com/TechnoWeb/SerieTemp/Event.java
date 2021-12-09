@@ -1,12 +1,15 @@
 package com.TechnoWeb.SerieTemp;
 
 import java.util.Date;
-import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,9 +24,6 @@ public class Event {
     @Column(name = "Id", nullable = false)
     private Long id;
 
-    @Column(name = "IdSerieT", nullable = false)
-    private Long idSerieT;
-
     @Column(name = "Date", nullable = false)
     private Date date;
 
@@ -33,17 +33,20 @@ public class Event {
     @Column(name = "Comment", nullable = true)
     private String comment;
 
-    @JsonInclude()
-    @Transient
-    private ArrayList<String> tags;
+    @ManyToMany(mappedBy = "event")
+    private Set<Tag> tags;
 
-    public Event() {}
+    @ManyToOne
+    @JoinColumn(name = "IdSerieT")
+    private SerieT serieT;
+
+	public Event() {}
 
     public Event(Date date, float value, String comment) {
         this.date = date;
         this.value = value;
         this.comment = comment;
-        this.tags = new ArrayList<String>();
+        this.tags = new Set<Tag>();
     }
 
     public void setId(Long id) {
@@ -78,21 +81,21 @@ public class Event {
         return this.comment;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
-    public ArrayList<String> getTags() {
+    public Set<Tag> getTags() {
         return this.tags;
     }
 
-    public Long getIdSerieT() {
-        return idSerieT;
-    }
+    public SerieT getSerieT() {
+		return serieT;
+	}
 
-    public void setIdSerieT(Long idSerieT) {
-        this.idSerieT = idSerieT;
-    }
+	public void setSerieT(SerieT serieT) {
+		this.serieT = serieT;
+	}
 
     @Override
     public String toString() {
