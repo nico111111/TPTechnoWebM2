@@ -1,6 +1,7 @@
 package com.TechnoWeb.SerieTemp;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -46,7 +47,7 @@ public class Event {
         this.date = date;
         this.value = value;
         this.comment = comment;
-        this.tags = new Set<Tag>();
+        this.tags = new HashSet<Tag>();
     }
 
     public void setId(Long id) {

@@ -1,0 +1,5 @@
+-- INSERT INTO SERIET VALUES(42,'salut', 'coucou');
+-- INSERT INTO EVENT VALUES(43, 'comentest', '2010-10-10', 4.2, 42);
+-- INSERT INTO EVENT VALUES(44, 'comment12', '2121-05-07', 8.7, 42);
+-- INSERT INTO TAG VALUES(84, 'fkjqdhjskbjsfdvs');
+-- INSERT INTO EVENT_TAG VALUES(84, 43);
