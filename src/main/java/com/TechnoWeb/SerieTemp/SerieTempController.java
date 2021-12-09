@@ -30,7 +30,7 @@ public class SerieTempController {
 	@Autowired
 	private SerieTDAO serieTDAO;
 
-	@GetMapping("/hello")
+	@GetMapping("/")
 	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name, @RequestParam(value = "oui", defaultValue = "truc") String oui) {
 		return "hello " + name + " et " + oui;
 	}
@@ -39,7 +39,7 @@ public class SerieTempController {
 	CollectionModel<SerieT> allSeries() {
 		Iterable<SerieT> listS = serieTDAO.findAll();
 		for (SerieT se : listS) {
-			Link selfLink = linkTo(methodOn(SerieTempController.class).one(se.getId())).withSelfRel();
+			Link selfLink = linkTo(methodOn(SerieTempController.class).findSerieById(se.getId())).withSelfRel();
 			se.setSelfLink(selfLink);
 		}
 		return CollectionModel.of(listS);
@@ -53,9 +53,13 @@ public class SerieTempController {
 	}
 */
 	@GetMapping("/SerieT/{id}")
-	EntityModel<SerieT> one(@PathVariable long id) {
-		SerieT test = serieTDAO.findById(id);
-		return EntityModel.of(test,linkTo(methodOn(SerieTempController.class).one(id)).withSelfRel(),linkTo(methodOn(SerieTempController.class).allSeries()).withRel("toute les series"));
+	EntityModel<SerieT> findSerieById(@PathVariable long id) {
+		try{
+			SerieT test = serieTDAO.findById(id);
+			return EntityModel.of(test,linkTo(methodOn(SerieTempController.class).findSerieById(id)).withSelfRel(),linkTo(methodOn(SerieTempController.class).allSeries()).withRel("toute les series"));
+		}catch(Exception e){
+			throw new SerieNotFoundException(id);
+		}
 	}
 /*
 	@GetMapping("/SerieT/{id}")

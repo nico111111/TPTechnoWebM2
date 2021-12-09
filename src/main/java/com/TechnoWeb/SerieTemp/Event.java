@@ -21,6 +21,9 @@ public class Event {
     @Column(name = "Id", nullable = false)
     private Long id;
 
+    @Column(name = "IdSerieT", nullable = false)
+    private Long idSerieT;
+
     @Column(name = "Date", nullable = false)
     private Date date;
 
@@ -81,6 +84,14 @@ public class Event {
 
     public ArrayList<String> getTags() {
         return this.tags;
+    }
+
+    public Long getIdSerieT() {
+        return idSerieT;
+    }
+
+    public void setIdSerieT(Long idSerieT) {
+        this.idSerieT = idSerieT;
     }
 
     @Override
