@@ -32,6 +32,7 @@ public class SerieT {
     @Transient
     private ArrayList<Event> listEvents;
 
+    @Transient
     private Link selfLink;
 
     public SerieT(){}
