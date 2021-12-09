@@ -1,12 +1,14 @@
 package com.TechnoWeb.SerieTemp;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import javax.persistence.Transient;
 
@@ -30,14 +32,14 @@ public class SerieT {
 
     @JsonInclude()
     @Transient
-    private ArrayList<Event> listEvents;
+    private List<Event> listEvents;
 
     @Transient
     private Link selfLink;
 
     public SerieT(){}
 
-    public SerieT(String title, String desc){
+    public SerieT(String title, String desc, Long id){
         this.title = title;
         this.desc = desc;
     }
@@ -74,11 +76,11 @@ public class SerieT {
         return this.selfLink;
     }
 
-    public void setListeEvents(ArrayList<Event> listEvents) {
+    public void setListeEvents(List<Event> listEvents) {
         this.listEvents = listEvents;
     }
 
-    public ArrayList<Event> getListEvents() {
+    public List<Event> getListEvents() {
         return this.listEvents;
     }
 
