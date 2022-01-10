@@ -43,7 +43,11 @@ public class SerieTempController {
 		Iterable<SerieT> listS = serieTDAO.findAll();
 		for (SerieT se : listS) {
 			Link selfLink = linkTo(methodOn(SerieTempController.class).findSerieById(se.getId())).withSelfRel();
-			se.setSelfLink(selfLink);
+			se.add(selfLink);
+			for(Event ev : se.getListEvents()) {
+				selfLink = linkTo(methodOn(SerieTempController.class).findEventById(ev.getId())).withSelfRel();
+				ev.add(selfLink);
+			}
 		}
 		return CollectionModel.of(listS);
 	}
@@ -59,7 +63,16 @@ public class SerieTempController {
 	EntityModel<SerieT> findSerieById(@PathVariable long id) {
 		try{
 			SerieT test = serieTDAO.findById(id);
-			return EntityModel.of(test,linkTo(methodOn(SerieTempController.class).findSerieById(id)).withSelfRel(),linkTo(methodOn(SerieTempController.class).allSeries()).withRel("toute les series"));
+			Link selfLink = linkTo(methodOn(SerieTempController.class).findSerieById(id)).withSelfRel();
+			Link allSerieLink = linkTo(methodOn(SerieTempController.class).allSeries()).withRel("all series");
+			test.add(selfLink);
+			test.add(allSerieLink);
+			for(Event ev : test.getListEvents()) {
+				selfLink = linkTo(methodOn(SerieTempController.class).findEventById(ev.getId())).withSelfRel();
+				ev.add(selfLink);
+				System.out.println("salut");
+			}
+			return EntityModel.of(test);
 		}catch(Exception e){
 			throw new SerieNotFoundException(id);
 		}
@@ -69,7 +82,12 @@ public class SerieTempController {
 	EntityModel<Event> findEventById(@PathVariable long id) {
 		try{
 			Event test = eventDAO.findById(id);
-			return EntityModel.of(test,linkTo(methodOn(SerieTempController.class).findEventById(id)).withSelfRel());
+			Link selfLink = linkTo(methodOn(SerieTempController.class).findEventById(id)).withSelfRel();
+			test.add(selfLink);
+			SerieT ser = test.getSerieT();
+			Link serieLink = linkTo(methodOn(SerieTempController.class).findSerieById(ser.getId())).withSelfRel();
+			ser.add(serieLink);
+			return EntityModel.of(test);
 		}catch(Exception e){
 			throw new SerieNotFoundException(id);
 		}

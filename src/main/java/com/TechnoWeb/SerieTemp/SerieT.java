@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 @Entity
 @Table(name="SERIET")
-public class SerieT {
+public class SerieT extends RepresentationModel<SerieT> {
 
     @Id
     @GeneratedValue
@@ -33,9 +35,6 @@ public class SerieT {
     @JsonIgnoreProperties("serieT")
     @OneToMany(mappedBy = "serieT")
     private Set<Event> listEvents;
-
-    @Transient
-    private Link selfLink;
 
     public SerieT(){}
 
@@ -66,14 +65,6 @@ public class SerieT {
 
     public String getDesc() {
         return this.desc;
-    }
-
-    public void setSelfLink(Link l) {
-        this.selfLink = l;
-    }
-
-    public Link getSelfLink() {
-        return this.selfLink;
     }
 
     public Set<Event> getListEvents() {
