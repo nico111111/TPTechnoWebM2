@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Tag")
 public class Tag {
@@ -23,6 +25,7 @@ public class Tag {
 	@Column(name = "Value", nullable = true)
     private String value;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "EVENT_TAG", joinColumns = {
 		@JoinColumn(name = "idTag")}, inverseJoinColumns = @JoinColumn(name = "idEvent"))

@@ -29,6 +29,9 @@ public class SerieTempController {
 
 	@Autowired
 	private SerieTDAO serieTDAO;
+	
+	@Autowired
+	private EventDAO eventDAO;
 
 	@GetMapping("/")
 	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name, @RequestParam(value = "oui", defaultValue = "truc") String oui) {
@@ -57,6 +60,16 @@ public class SerieTempController {
 		try{
 			SerieT test = serieTDAO.findById(id);
 			return EntityModel.of(test,linkTo(methodOn(SerieTempController.class).findSerieById(id)).withSelfRel(),linkTo(methodOn(SerieTempController.class).allSeries()).withRel("toute les series"));
+		}catch(Exception e){
+			throw new SerieNotFoundException(id);
+		}
+	}
+
+	@GetMapping("/Event/{id}")
+	EntityModel<Event> findEventById(@PathVariable long id) {
+		try{
+			Event test = eventDAO.findById(id);
+			return EntityModel.of(test,linkTo(methodOn(SerieTempController.class).findEventById(id)).withSelfRel());
 		}catch(Exception e){
 			throw new SerieNotFoundException(id);
 		}

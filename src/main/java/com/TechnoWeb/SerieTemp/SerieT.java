@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import org.springframework.hateoas.Link;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
@@ -29,6 +30,7 @@ public class SerieT {
     @Column(name = "Desc", length = 1024, nullable = true)
     private String desc;
 
+    @JsonIgnoreProperties("serieT")
     @OneToMany(mappedBy = "serieT")
     private Set<Event> listEvents;
 

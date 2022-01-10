@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 //https://spring.io/guides/tutorials/rest/
@@ -37,6 +38,7 @@ public class Event {
     @ManyToMany(mappedBy = "event")
     private Set<Tag> tags;
 
+    @JsonIgnoreProperties("listEvents")
     @ManyToOne
     @JoinColumn(name = "IdSerieT")
     private SerieT serieT;
