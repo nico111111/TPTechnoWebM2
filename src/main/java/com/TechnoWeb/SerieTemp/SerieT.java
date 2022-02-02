@@ -8,14 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 @Entity
 @Table(name="SERIET")

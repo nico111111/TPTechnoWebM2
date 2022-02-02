@@ -2,7 +2,6 @@ package com.TechnoWeb.SerieTemp;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,17 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import org.springframework.hateoas.RepresentationModel;
 
-//https://spring.io/guides/tutorials/rest/
 @Entity
 @Table(name="EVENT")
 public class Event extends RepresentationModel<Event> {
+
     @Id
     @GeneratedValue
     @Column(name = "Id", nullable = false)

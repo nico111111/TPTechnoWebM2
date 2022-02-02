@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SerieTDAO extends CrudRepository<SerieT, Long> {
-
     public List<SerieT> findByTitle(String title);
     public SerieT findById(long id);
-
-
 }
