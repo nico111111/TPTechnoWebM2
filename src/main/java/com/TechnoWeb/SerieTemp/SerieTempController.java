@@ -70,7 +70,6 @@ public class SerieTempController {
 			for(Event ev : test.getListEvents()) {
 				selfLink = linkTo(methodOn(SerieTempController.class).findEventById(ev.getId())).withSelfRel();
 				ev.add(selfLink);
-				System.out.println("salut");
 			}
 			return EntityModel.of(test);
 		}catch(Exception e){

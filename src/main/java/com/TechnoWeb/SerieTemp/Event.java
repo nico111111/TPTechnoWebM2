@@ -2,6 +2,7 @@ package com.TechnoWeb.SerieTemp;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -106,4 +107,17 @@ public class Event extends RepresentationModel<Event> {
     public String toString() {
         return this.date + " " + this.value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        Event event = (Event) o;
+        return this.id.equals(event.getId());
+    }
+
 }
